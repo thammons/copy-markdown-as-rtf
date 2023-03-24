@@ -9,13 +9,77 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:copyMarkdownAsRtf"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "//": "The configuration section is used to configure the extension - copied from copyMarkdownAsHtml",
+    "configuration": {
+      "type": "object",
+      "title": "Copy Markdown as RTF configuration",
+      "properties": {
+        "copyMarkdownAsRtf.html": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable HTML tags in source",
+          "enum": [
+            true,
+            false
+          ]
+        },
+        "copyMarkdownAsRtf.xhtmlOut": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use '/' to close single tags (<br />). This is only for full CommonMark compatibility.",
+          "enum": [
+            true,
+            false
+          ]
+        },
+        "copyMarkdownAsRtf.breaks": {
+          "type": "boolean",
+          "default": false,
+          "description": "Convert '\\n' in paragraphs into <br>This is only for full CommonMark compatibility.",
+          "enum": [
+            true,
+            false
+          ]
+        },
+        "copyMarkdownAsRtf.langPrefix": {
+          "type": "string",
+          "default": "language-",
+          "description": "CSS language prefix for fenced blocks. Can be useful for external highlighters."
+        },
+        "copyMarkdownAsRtf.linkify": {
+          "type": "boolean",
+          "default": false,
+          "description": "Autoconvert URL-like text to links.",
+          "enum": [
+            true,
+            false
+          ]
+        },
+        "copyMarkdownAsRtf.typographer": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable some language-neutral replacement + quotes beautification.",
+          "enum": [
+            true,
+            false
+          ]
+        },
+        "copyMarkdownAsRtf.quotes": {
+          "type": "string",
+          "default": "“”‘’",
+          "description": "Double + single quotes replacement pairs, when typographer enabled, and smartquotes on."
+        }
+      }
+    },
     "commands": [
       {
-        "command": "copy-markdown-as-rtf.helloWorld",
-        "title": "Hello World"
+        "command": "copy-markdown-as-rtf.copyMarkdownAsRtf",
+        "title": "Copy Markdown as RTF"
       }
     ]
   },
@@ -45,5 +109,9 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "@vscode/test-electron": "^2.2.3"
+  },
+  "dependencies": {
+    "clipboardy": "^3.0.0",
+    "markdown-it": "^13.0.1"
   }
 }
